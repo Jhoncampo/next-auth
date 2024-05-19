@@ -11,7 +11,7 @@ interface UserLogin {
 
 const Login = () => {
     const [error, setError] = useState<string | null>(null);
-    const [isSubmit, setIsSubmit] = useState(false)
+    const [isSubmit, setIsSubmit] = useState(false);
     const {
         register,
         handleSubmit,
@@ -19,21 +19,25 @@ const Login = () => {
     } = useForm<UserLogin>();
     const router = useRouter();
 
-    const onSubmit = handleSubmit( async (data) => {
-        setIsSubmit(true)
-        console.log(data);
-        const res = await signIn("credentials", {
-            email: data.email,
-            password: data.password,
-            redirect: false,
-        });
-        if (res?.error) {
-            setError(res.error);
-        } else {
-            router.push("/dashboard");
-            router.refresh()
+    const onSubmit = handleSubmit(async (data) => {
+        setIsSubmit(true);
+        try {
+            const res = await signIn("credentials", {
+                email: data.email,
+                password: data.password,
+                redirect: false,
+            });
+            if (res?.error) {
+                setError(res.error);
+            } else {
+                router.push("/dashboard");
+                router.refresh();
+            }
+        } catch (error) {
+            setError("Ha ocurrido un error en el login");
+        } finally {
+            setIsSubmit(false);
         }
-        setIsSubmit(false)
     });
 
     return (
@@ -43,7 +47,9 @@ const Login = () => {
                     Login
                 </h1>
                 {error && (
-                    <p className="bg-red-500 text-lg text-white p-3 rounded mb-2">{error}</p>
+                    <p className="bg-red-500 text-lg text-white p-3 rounded mb-2">
+                        {error}
+                    </p>
                 )}
                 <label
                     id="username"
@@ -85,7 +91,10 @@ const Login = () => {
                         {errors.password.message}
                     </span>
                 )}
-                <button disabled={isSubmit} className="w-full bg-blue-500 p-3 text-white rounded">
+                <button
+                    disabled={isSubmit}
+                    className="w-full bg-blue-500 p-3 text-white rounded"
+                >
                     {isSubmit ? "Ingresando..." : "Login"}
                 </button>
             </form>

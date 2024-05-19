@@ -9,7 +9,7 @@ export const POST = async (req: Request) => {
         const emailFound = await db.user.findUnique({
             where: {
                 email: data.email,
-            },
+            }
         });
         if (emailFound) {
             return NextResponse.json(
@@ -20,8 +20,8 @@ export const POST = async (req: Request) => {
 
         const userFound = await db.user.findUnique({
             where: {
-                username: data.username,
-            },
+                username: data.username
+            }
         });
         if (userFound) {
             return NextResponse.json(
@@ -41,8 +41,6 @@ export const POST = async (req: Request) => {
         });
 
         const { password: _, ...user } = newUser;
-
-        console.log(newUser);
         return NextResponse.json(user);
     } catch (error) {
         return NextResponse.json(

@@ -35,9 +35,9 @@ const RegisterPage = () => {
                 password: data.password,
             }),
         });
-
+        console.log(res)
         if (res.ok) {
-            router.push("/api/auth/signin");
+            router.push("/auth/login");
         }
         setIsSubmit(false)
     });
@@ -127,7 +127,7 @@ const RegisterPage = () => {
                 )}
 
                 <button disabled={isSubmit} className="w-full bg-blue-500 p-3 text-white rounded">
-                    Register
+                    {isSubmit ? "Register" : "Registrando"}
                 </button>
             </form>
         </div>
