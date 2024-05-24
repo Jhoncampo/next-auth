@@ -19,6 +19,7 @@ const Login = () => {
     } = useForm<UserLogin>();
     const router = useRouter();
 
+
     const onSubmit = handleSubmit(async (data) => {
         setIsSubmit(true);
         try {
@@ -52,11 +53,11 @@ const Login = () => {
                     </p>
                 )}
                 <label
-                    id="username"
-                    htmlFor="username"
+                    id="email"
+                    htmlFor="email"
                     className="text-slate-500 mb-2 block text-sm"
                 >
-                    Username:
+                    Email:
                 </label>
                 <input
                     placeholder="Ingrese el email"
@@ -72,11 +73,11 @@ const Login = () => {
                     </span>
                 )}
                 <label
-                    id="username"
-                    htmlFor="username"
+                    id="password"
+                    htmlFor="password"
                     className="text-slate-500 mb-2 block text-sm"
                 >
-                    Username:
+                    Password:
                 </label>
                 <input
                     placeholder="*********"

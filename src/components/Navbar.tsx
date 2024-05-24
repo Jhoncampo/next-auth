@@ -3,18 +3,21 @@ import Link from "next/link";
 
 const Navbar = async () => {
     const session = await getServerSession();
-    console.log(session)
+    console.log(session?.user?.name);
 
     return (
         <div className="w-full flex items-center py-4 justify-between bg-blue-950 px-10">
-            <h1 className="text-2xl text-white">Nextauth</h1>
+            <h1 className="text-2xl text-white">Hola {session?.user?.name}</h1>
             <div className="flex gap-3">
                 {session?.user ? (
                     <>
                         <Link href="/" className="py-2 px-4 rounded bg-white">
                             Home
                         </Link>
-                        <Link href="/dashboard" className="py-2 px-4 rounded bg-white">
+                        <Link
+                            href="/dashboard"
+                            className="py-2 px-4 rounded bg-white"
+                        >
                             Dashboard
                         </Link>
                         <Link
@@ -26,11 +29,8 @@ const Navbar = async () => {
                     </>
                 ) : (
                     <>
-                        <Link
-                            href="/auth/register"
-                            className="py-2 px-4 rounded bg-white"
-                        >
-                            Register
+                        <Link href="/" className="py-2 px-4 rounded bg-white">
+                            Home
                         </Link>
                         <Link
                             href="/auth/login"
@@ -39,10 +39,10 @@ const Navbar = async () => {
                             Login
                         </Link>
                         <Link
-                            href="/dashboard"
+                            href="/auth/register"
                             className="py-2 px-4 rounded bg-white"
                         >
-                            Dashboard
+                            Register
                         </Link>
                     </>
                 )}
